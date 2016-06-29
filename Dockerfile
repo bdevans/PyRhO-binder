@@ -9,23 +9,23 @@ USER root
 
 # libav-tools for matplotlib anim
 RUN apt-get update && \
-	apt-get install -y --no-install-recommends libav-tools && \
-	apt-get install -y git \
-					   gcc \
-					   g++ \
-					   gfortran \
-					   libatlas-dev \
-					   libatlas-base-dev \
-					   libfreetype6-dev && \
-	apt-get clean && \
-	rm -rf /var/lib/apt/lists/*
+  apt-get install -y --no-install-recommends libav-tools && \
+  apt-get install -y git \
+             gcc \
+             g++ \
+             gfortran \
+             libatlas-dev \
+             libatlas-base-dev \
+             libfreetype6-dev && \
+  apt-get clean && \
+  rm -rf /var/lib/apt/lists/*
 # Official Debian and Ubuntu images automatically run apt-get clean
 
 ### Change locale to en_GB
 # https://github.com/jupyter/docker-stacks/blob/master/minimal-notebook/Dockerfile
 
-RUN echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen && \ 
-	locale-gen 
+RUN echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen && \
+  locale-gen
 
 ENV LC_ALL en_GB.UTF-8
 ENV LANG en_GB.UTF-8
@@ -35,35 +35,35 @@ USER jovyan
 
 # Install Python 3 packages
 RUN conda install --quiet --yes \
-	'ipywidgets=4.1*' \
-	'pandas=0.17*' \
-	'numexpr=2.5*' \
-	'matplotlib=1.5*' \
-	'scipy=0.17*' \
-	'seaborn=0.7*' \
-	'sympy=0.7*' \
-	'cython=0.23*' \
-	'bokeh=0.11*' \
-	'h5py=2.5*' \
+  'ipywidgets=4.1*' \
+  'pandas=0.17*' \
+  'numexpr=2.5*' \
+  'matplotlib=1.5*' \
+  'scipy=0.17*' \
+  'seaborn=0.7*' \
+  'sympy=0.7*' \
+  'cython=0.23*' \
+  'bokeh=0.11*' \
+  'h5py=2.5*' \
     'nose=1.3*' \
-	&& conda clean -tipsy
+  && conda clean -tipsy
 
 # Install Python 2 packages
 RUN conda create --quiet --yes -p $CONDA_DIR/envs/python2 python=2.7 \
-	'ipython=4.1*' \
-	'ipywidgets=4.1*' \
-	'pandas=0.17*' \
-	'numexpr=2.5*' \
-	'matplotlib=1.5*' \
-	'scipy=0.17*' \
-	'seaborn=0.7*' \
-	'sympy=0.7*' \
-	'cython=0.23*' \
-	'bokeh=0.11*' \
-	'h5py=2.5*' \
+  'ipython=4.1*' \
+  'ipywidgets=4.1*' \
+  'pandas=0.17*' \
+  'numexpr=2.5*' \
+  'matplotlib=1.5*' \
+  'scipy=0.17*' \
+  'seaborn=0.7*' \
+  'sympy=0.7*' \
+  'cython=0.23*' \
+  'bokeh=0.11*' \
+  'h5py=2.5*' \
     'nose=1.3*' \
-	'pyzmq' \
-	&& conda clean -tipsy
+  'pyzmq' \
+  && conda clean -tipsy
 
 USER root
 
@@ -90,25 +90,25 @@ RUN $CONDA_DIR/envs/python2/bin/python -m ipykernel install
 #USER root
 # Dependencies
 RUN apt-get update && \
-	apt-get -y install autotools-dev \
-					   autoconf \
-					   automake \
-					   libtool \
-					   bison \
-					   flex \
-					   xfonts-100dpi \
-					   libncurses5-dev \
-					   libxext-dev \
-					   libreadline-dev \
-					   libopenmpi-dev \
-					   openmpi-bin \
-					   openmpi-doc \
-					   openmpi-common \
-					   liblapack-dev \
-					   libblas-dev \
-					   libxft-dev \
-					   mercurial \
-					   mercurial-common
+  apt-get -y install autotools-dev \
+             autoconf \
+             automake \
+             libtool \
+             bison \
+             flex \
+             xfonts-100dpi \
+             libncurses5-dev \
+             libxext-dev \
+             libreadline-dev \
+             libopenmpi-dev \
+             openmpi-bin \
+             openmpi-doc \
+             openmpi-common \
+             liblapack-dev \
+             libblas-dev \
+             libxft-dev \
+             mercurial \
+             mercurial-common
 
 ENV NDIR /opt/neuron
 ENV NRNPY python3
@@ -129,8 +129,8 @@ RUN cd $NDIR; tar xzf nrn-$VNRN.tar.gz; rm nrn-$VNRN.tar.gz; mv nrn-$VNRN nrn
 
 RUN cd $NDIR/iv; ./build.sh; ./configure --prefix=`pwd` --with-x --x-includes=/usr/include/ --x-libraries=/usr/lib/ && make && make install
 
-#RUN cd $NDIR/nrn; sh src/nrnmpi/mkdynam.sh; ./build.sh; 
-RUN cd $NDIR/nrn; ./build.sh; 
+#RUN cd $NDIR/nrn; sh src/nrnmpi/mkdynam.sh; ./build.sh;
+RUN cd $NDIR/nrn; ./build.sh;
 RUN cd $NDIR/nrn; 2to3 -w src/oc/mk_hocusr_h.py; sed -i '1i from __future__ import print_function' src/oc/mk_hocusr_h.py
 RUN cd $NDIR/nrn; sudo sed -i.bak -e "s/print sys.api_version,/from __future__ import print_function; print(sys.api_version)/" configure
 # --with-music=/usr/local
@@ -169,7 +169,7 @@ USER root
 
 RUN apt-get clean && \
     apt-get autoremove && \
-	rm -rf /var/lib/apt/lists/*
+  rm -rf /var/lib/apt/lists/*
 
 ### Copy demonstration notebook and config files to home directory
 COPY Prometheus_demo.ipynb /home/$NB_USER/work/
