@@ -11,12 +11,12 @@ USER root
 RUN apt-get update && \
   apt-get install -y --no-install-recommends libav-tools && \
   apt-get install -y git \
-             gcc \
-             g++ \
-             gfortran \
-             libatlas-dev \
-             libatlas-base-dev \
-             libfreetype6-dev && \
+                     gcc \
+                     g++ \
+                     gfortran \
+                     libatlas-dev \
+                     libatlas-base-dev \
+                     libfreetype6-dev && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 # Official Debian and Ubuntu images automatically run apt-get clean
@@ -25,7 +25,7 @@ RUN apt-get update && \
 # https://github.com/jupyter/docker-stacks/blob/master/minimal-notebook/Dockerfile
 
 RUN echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen && \
-  locale-gen
+    locale-gen
 
 ENV LC_ALL en_GB.UTF-8
 ENV LANG en_GB.UTF-8
@@ -35,35 +35,35 @@ USER jovyan
 
 # Install Python 3 packages
 RUN conda install --quiet --yes \
-  'ipywidgets=4.1*' \
-  'pandas=0.17*' \
-  'numexpr=2.5*' \
-  'matplotlib=1.5*' \
-  'scipy=0.17*' \
-  'seaborn=0.7*' \
-  'sympy=0.7*' \
-  'cython=0.23*' \
-  'bokeh=0.11*' \
-  'h5py=2.5*' \
+    'ipywidgets=4.1*' \
+    'pandas=0.17*' \
+    'numexpr=2.5*' \
+    'matplotlib=1.5*' \
+    'scipy=0.17*' \
+    'seaborn=0.7*' \
+    'sympy=0.7*' \
+    'cython=0.23*' \
+    'bokeh=0.11*' \
+    'h5py=2.5*' \
     'nose=1.3*' \
-  && conda clean -tipsy
+    && conda clean -tipsy
 
 # Install Python 2 packages
 RUN conda create --quiet --yes -p $CONDA_DIR/envs/python2 python=2.7 \
-  'ipython=4.1*' \
-  'ipywidgets=4.1*' \
-  'pandas=0.17*' \
-  'numexpr=2.5*' \
-  'matplotlib=1.5*' \
-  'scipy=0.17*' \
-  'seaborn=0.7*' \
-  'sympy=0.7*' \
-  'cython=0.23*' \
-  'bokeh=0.11*' \
-  'h5py=2.5*' \
+    'ipython=4.1*' \
+    'ipywidgets=4.1*' \
+    'pandas=0.17*' \
+    'numexpr=2.5*' \
+    'matplotlib=1.5*' \
+    'scipy=0.17*' \
+    'seaborn=0.7*' \
+    'sympy=0.7*' \
+    'cython=0.23*' \
+    'bokeh=0.11*' \
+    'h5py=2.5*' \
     'nose=1.3*' \
-  'pyzmq' \
-  && conda clean -tipsy
+    'pyzmq' \
+    && conda clean -tipsy
 
 USER root
 
@@ -169,7 +169,7 @@ USER root
 
 RUN apt-get clean && \
     apt-get autoremove && \
-  rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/*
 
 ### Copy demonstration notebook and config files to home directory
 COPY Prometheus_demo.ipynb /home/$NB_USER/work/
