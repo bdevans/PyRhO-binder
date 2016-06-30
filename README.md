@@ -11,7 +11,8 @@ Create an account to run the portal and disable root access
 adduser monty
 gpasswd -a monty sudo
 sudo nano /etc/ssh/sshd_config
->> PermitRootLogin no
+> PermitRootLogin no
+
 service ssh restart
 
 git clone https://github.com/ProjectPyRhO/Prometheus
