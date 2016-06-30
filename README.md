@@ -46,3 +46,6 @@ Useful commands
 `sudo docker logs proxy`
 `sudo docker logs tmpnb`
 `sudo iptables -L`
+
+After an os update it may be necessary to run:
+`sudo apt-get install linux-image-extra-$(uname -r)`
