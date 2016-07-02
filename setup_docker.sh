@@ -16,4 +16,7 @@ sudo apt-get install docker-engine
 # To start at boot
 # sudo systemctl enable docker
 
+# Add group docker to current user
+sudo usermod -a -G docker $USER
+
 sudo reboot
