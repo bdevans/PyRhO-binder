@@ -7,7 +7,7 @@ Quickstart Prometheus
 ---------------------
 `sudo apt-get update && sudo apt-get upgrade`
 #### Create an account to run the portal and disable root access
-See [this guide](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-14-04) for details including generating ssh keys. 
+See [this guide](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-14-04) for details including generating ssh keys.
 
 `adduser monty`
 
@@ -51,6 +51,10 @@ Useful commands
 `sudo docker stop $(sudo docker ps -a -q)`
 
 `sudo docker rm $(sudo docker ps -a -q)`
+
+#### Remove old intermediate layers
+`docker rm $(docker ps -qa --no-trunc --filter "status=exited")`
+`docker rmi $(docker images -q --no-trunc --filter "dangling=true")`
 
 #### Check logs
 `sudo docker logs proxy`
