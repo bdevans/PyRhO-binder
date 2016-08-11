@@ -54,6 +54,7 @@ Useful commands
 
 #### Remove old intermediate layers
 `docker rm $(docker ps -qa --no-trunc --filter "status=exited")`
+
 `docker rmi $(docker images -q --no-trunc --filter "dangling=true")`
 
 #### Check logs
