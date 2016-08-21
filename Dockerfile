@@ -19,11 +19,8 @@ RUN apt-get update && \
 # Official Debian and Ubuntu images automatically run apt-get clean
 
 ### Change locale to en_GB
-# https://github.com/jupyter/docker-stacks/blob/master/minimal-notebook/Dockerfile
-
 #RUN echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen && \
 #    locale-gen
-
 #ENV LC_ALL en_GB.UTF-8
 #ENV LANG en_GB.UTF-8
 #ENV LANGUAGE en_GB.UTF-8
@@ -77,43 +74,28 @@ USER root
 #RUN $CONDA_DIR/envs/python2/bin/python -m ipykernel install
 
 ### NEURON installation
-#USER root
-# Setup NEURON
-#RUN echo $HOME
-#/home/$NB_USER/
-#COPY install_neuron.sh /home/$NB_USER/
-#COPY install_neuron.sh /usr/local/bin/
-#RUN sudo install_neuron.sh /usr/local/bin/NEURON
-#CMD ["install_neuron.sh", "/home/$NB_USER/NEURON"]
-#RUN chown -R $NB_USER:users /home/$NB_USER
-#RUN ls -al
-#RUN /home/$NB_USER/install_neuron.sh
-#RUN sudo /home/$NB_USER/install_neuron.sh
-#CMD ["/home/main/install_neuron.sh"]
-#USER main
 
-#USER root
 # Dependencies
 RUN apt-get update && \
     apt-get -y install autotools-dev \
-               autoconf \
-               automake \
-               libtool \
-               bison \
-               flex \
-               xfonts-100dpi \
-               libncurses5-dev \
-               libxext-dev \
-               libreadline-dev \
-               libopenmpi-dev \
-               openmpi-bin \
-               openmpi-doc \
-               openmpi-common \
-               liblapack-dev \
-               libblas-dev \
-               libxft-dev \
-               mercurial \
-               mercurial-common
+                       autoconf \
+                       automake \
+                       libtool \
+                       bison \
+                       flex \
+                       xfonts-100dpi \
+                       libncurses5-dev \
+                       libxext-dev \
+                       libreadline-dev \
+                       libopenmpi-dev \
+                       openmpi-bin \
+                       openmpi-doc \
+                       openmpi-common \
+                       liblapack-dev \
+                       libblas-dev \
+                       libxft-dev \
+                       mercurial \
+                       mercurial-common
 
 ENV NDIR $HOME/neuron
 ENV NRNPY /home/main/anaconda2/envs/python3/bin/python3
@@ -126,20 +108,16 @@ ENV VNRN 7.4
 ENV VIV 19
 RUN wget -q http://www.neuron.yale.edu/ftp/neuron/versions/v$VNRN/nrn-$VNRN.tar.gz
 RUN wget -q http://www.neuron.yale.edu/ftp/neuron/versions/v$VNRN/iv-$VIV.tar.gz
-# RUN mv /root/nrn-$VNRN.tar.gz /root/iv-$VIV.tar.gz $NDIR/
 RUN tar xzf iv-$VIV.tar.gz; rm iv-$VIV.tar.gz; mv iv-$VIV iv
 RUN tar xzf nrn-$VNRN.tar.gz; rm nrn-$VNRN.tar.gz; mv nrn-$VNRN nrn
-
 #RUN cd $NDIR; hg clone http://www.neuron.yale.edu/hg/neuron/nrn
 #RUN cd $NDIR; hg clone http://www.neuron.yale.edu/hg/neuron/iv
-
 RUN cd $NDIR/iv; ./build.sh; ./configure --prefix=`pwd` --with-x --x-includes=/usr/include/ --x-libraries=/usr/lib/ && make && make install
 
 #RUN cd $NDIR/nrn; sh src/nrnmpi/mkdynam.sh; ./build.sh;
 RUN cd $NDIR/nrn; ./build.sh;
 RUN cd $NDIR/nrn; 2to3 -w src/oc/mk_hocusr_h.py; sed -i '1i from __future__ import print_function' src/oc/mk_hocusr_h.py
 RUN cd $NDIR/nrn; sed -i.bak -e "s/print sys.api_version,/from __future__ import print_function; print(sys.api_version)/" configure
-# --with-music=/usr/local
 RUN cd $NDIR/nrn; ./configure --prefix=`pwd` --with-iv=$NDIR/iv --with-nrnpython=$NRNPY --with-paranrn=dynamic \
 --with-x --x-includes=/usr/include/ --x-libraries=/usr/lib/ --with-mpi && make && make install
 RUN echo 'export PATH=$PATH:$NDIR/iv/$ARCH/bin:$NDIR/nrn/$ARCH/bin' >> /etc/bash.bashrc
@@ -153,17 +131,13 @@ USER main
 ### Install PyRhO
 ENV VPYRHO 0.9.4
 # For upgrading: -U --ignore-installed --no-deps
-#ADD squash.sh . # Use to invalidate the cache
 ## Install for Python 2
 #RUN pip install pyrho[full]==$VPYRHO
 RUN pip install git+https://github.com/ProjectPyRhO/PyRhO.git#egg=PyRhO[full]
-#RUN pip install brian2tools
 ## Install for Python 3
-#RUN $CONDA_DIR/envs/python2/bin/pip install pyrho[full]==$VPYRHO
 RUN /home/main/anaconda2/envs/python3/bin/pip install git+https://github.com/ProjectPyRhO/PyRhO.git#egg=PyRhO[full]
-#RUN $CONDA_DIR/envs/python2/bin/pip install brian2tools
-# Alternative to installing for Python 2
-#RUN source activate python2
+# Alternative to installing for Python 3
+#RUN source activate python3
 #RUN pip install --ignore-installed --no-deps pyrho[full]
 #RUN source deactivate
 
