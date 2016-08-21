@@ -48,7 +48,7 @@ RUN conda install --quiet --yes \
     'nose=1.3*' \
     'brian2' \
     'brian2tools'
-    'pyzmq' \
+    #'pyzmq' \
     && conda clean -tipsy
 
 # Install Python 3 packages
