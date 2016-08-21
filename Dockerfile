@@ -33,7 +33,7 @@ USER main
 RUN conda config --add channels brian-team
 
 # Install Python 2 packages
-RUN conda create --quiet --yes \
+RUN conda install --quiet --yes \
     'ipython=4.1*' \
     'ipywidgets=4.1*' \
     'pandas=0.17*' \
