@@ -116,7 +116,7 @@ RUN apt-get update && \
                mercurial-common
 
 ENV NDIR $HOME/neuron
-ENV NRNPY python3
+ENV NRNPY /home/main/anaconda2/envs/python3/bin/python3
 ENV ARCH x86_64
 
 RUN mkdir $NDIR
