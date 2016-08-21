@@ -47,7 +47,7 @@ RUN conda install --quiet --yes \
     'h5py=2.5*' \
     'nose=1.3*' \
     'brian2' \
-    'brian2tools'
+    'brian2tools' \
     #'pyzmq' \
     && conda clean -tipsy
 
