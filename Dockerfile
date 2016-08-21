@@ -1,4 +1,5 @@
 FROM andrewosh/binder-base
+# https://github.com/binder-project/binder-build-core/blob/master/images/base/Dockerfile
 
 MAINTAINER Project PyRhO <projectpyrho@gmail.com>
 
@@ -6,15 +7,36 @@ USER root
 
 # libav-tools for matplotlib anim
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends libav-tools && \
-    apt-get install -y git \
-                       gcc \
-                       g++ \
-                       gfortran \
-                       libatlas-dev \
-                       libatlas-base-dev \
-                       libfreetype6-dev && \
+    apt-get install -y --no-install-recommends \
+                    libav-tools \
+                    git \
+                    gcc \
+                    g++ \
+                    gfortran \
+                    libatlas-dev \
+                    libatlas-base-dev \
+                    libfreetype6-dev && \
+                    autotools-dev \
+                    autoconf \
+                    automake \
+                    libtool \
+                    bison \
+                    flex \
+                    xfonts-100dpi \
+                    libncurses5-dev \
+                    libxext-dev \
+                    libreadline-dev \
+                    libopenmpi-dev \
+                    openmpi-bin \
+                    openmpi-doc \
+                    openmpi-common \
+                    liblapack-dev \
+                    libblas-dev \
+                    libxft-dev \
+                    mercurial \
+                    mercurial-common && \
     apt-get clean && \
+    apt-get autoremove && \
     rm -rf /var/lib/apt/lists/*
 # Official Debian and Ubuntu images automatically run apt-get clean
 
@@ -69,34 +91,7 @@ RUN conda install --quiet --yes -n python3 \
 
 USER root
 
-# Install Python 2 kernel spec globally to avoid permission problems when NB_UID
-# switching at runtime.
-#RUN $CONDA_DIR/envs/python2/bin/python -m ipykernel install
-
 ### NEURON installation
-
-# Dependencies
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-                    autotools-dev \
-                    autoconf \
-                    automake \
-                    libtool \
-                    bison \
-                    flex \
-                    xfonts-100dpi \
-                    libncurses5-dev \
-                    libxext-dev \
-                    libreadline-dev \
-                    libopenmpi-dev \
-                    openmpi-bin \
-                    openmpi-doc \
-                    openmpi-common \
-                    liblapack-dev \
-                    libblas-dev \
-                    libxft-dev \
-                    mercurial \
-                    mercurial-common
 
 ENV NDIR $HOME/neuron
 ENV NRNPY /home/main/anaconda2/envs/python3/bin/python3
@@ -113,8 +108,8 @@ RUN tar xzf iv-$VIV.tar.gz; rm iv-$VIV.tar.gz; mv iv-$VIV iv
 RUN tar xzf nrn-$VNRN.tar.gz; rm nrn-$VNRN.tar.gz; mv nrn-$VNRN nrn
 #RUN cd $NDIR; hg clone http://www.neuron.yale.edu/hg/neuron/nrn
 #RUN cd $NDIR; hg clone http://www.neuron.yale.edu/hg/neuron/iv
-RUN cd $NDIR/iv; ./build.sh; ./configure --prefix=`pwd` --with-x --x-includes=/usr/include/ --x-libraries=/usr/lib/ && make && make install
 
+RUN cd $NDIR/iv; ./build.sh; ./configure --prefix=`pwd` --with-x --x-includes=/usr/include/ --x-libraries=/usr/lib/ && make && make install
 #RUN cd $NDIR/nrn; sh src/nrnmpi/mkdynam.sh; ./build.sh;
 RUN cd $NDIR/nrn; ./build.sh;
 RUN cd $NDIR/nrn; 2to3 -w src/oc/mk_hocusr_h.py; sed -i '1i from __future__ import print_function' src/oc/mk_hocusr_h.py
@@ -147,14 +142,8 @@ ENV NRN_NMODL_PATH $NDIR
 RUN python -c "from pyrho import *; setupNEURON()"
 
 USER root
-
-RUN apt-get clean && \
-    apt-get autoremove && \
-    rm -rf /var/lib/apt/lists/*
-
 ### Copy demonstration notebook and config files to home directory
-#COPY Prometheus_demo.ipynb /home/$NB_USER/work/
-#COPY jupyter_notebook_config.py /home/$NB_USER/.jupyter/
+#COPY jupyter_notebook_config.py $HOME/.jupyter/
 RUN chown -R main:main $HOME/notebooks
 RUN chown -R main:main $NDIR
 
