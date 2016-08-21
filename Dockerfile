@@ -34,16 +34,17 @@ RUN conda config --add channels brian-team
 
 # Install Python 2 packages
 RUN conda install --quiet --yes \
+    'pip=8.1*' \
     'ipython=4.1*' \
     'ipywidgets=4.1*' \
     'pandas=0.17*' \
-    'numexpr=2.5*' \
+    #'numexpr=2.5*' \
     'matplotlib=1.5*' \
     'scipy=0.17*' \
     'seaborn=0.7*' \
     'sympy=0.7*' \
     'cython=0.24*' \
-    'bokeh=0.11*' \
+    #'bokeh=0.11*' \
     'h5py=2.5*' \
     'nose=1.3*' \
     'brian2' \
@@ -52,16 +53,17 @@ RUN conda install --quiet --yes \
     && conda clean -tipsy
 
 # Install Python 3 packages
-RUN conda install --quiet --yes -n python3\
+RUN conda install --quiet --yes -n python3 \
+    'pip=8.1*' \
     'ipywidgets=4.1*' \
     'pandas=0.17*' \
-    'numexpr=2.5*' \
+    #'numexpr=2.5*' \
     'matplotlib=1.5*' \
     'scipy=0.17*' \
     'seaborn=0.7*' \
     'sympy=0.7*' \
     'cython=0.24*' \
-    'bokeh=0.11*' \
+    #'bokeh=0.11*' \
     'h5py=2.5*' \
     'nose=1.3*' \
     'brian2' \
