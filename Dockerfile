@@ -32,16 +32,16 @@ RUN conda config --add channels brian-team
 # Install Python 2 packages
 RUN conda install --quiet --yes \
     'pip=8.1*' \
-    'ipython=4.1*' \
-    'ipywidgets=4.1*' \
-    'pandas=0.17*' \
+    #'ipython=4.1*' \
+    #'ipywidgets=4.1*' \
     #'numexpr=2.5*' \
-    'matplotlib=1.5*' \
-    'scipy=0.17*' \
-    'seaborn=0.7*' \
-    'sympy=0.7*' \
-    'cython=0.24*' \
+    #'scipy=0.17*' \
+    #'sympy=0.7*' \
+    #'cython=0.24*' \
     #'bokeh=0.11*' \
+    'matplotlib=1.5*' \
+    'seaborn=0.7*' \
+    'pandas=0.17*' \
     'h5py=2.5*' \
     'nose=1.3*' \
     'brian2' \
@@ -52,15 +52,15 @@ RUN conda install --quiet --yes \
 # Install Python 3 packages
 RUN conda install --quiet --yes -n python3 \
     'pip=8.1*' \
-    'ipywidgets=4.1*' \
-    'pandas=0.17*' \
+    #'ipywidgets=4.1*' \
     #'numexpr=2.5*' \
-    'matplotlib=1.5*' \
-    'scipy=0.17*' \
-    'seaborn=0.7*' \
-    'sympy=0.7*' \
-    'cython=0.24*' \
+    #'scipy=0.17*' \
+    #'sympy=0.7*' \
+    #'cython=0.24*' \
     #'bokeh=0.11*' \
+    'matplotlib=1.5*' \
+    'seaborn=0.7*' \
+    'pandas=0.17*' \
     'h5py=2.5*' \
     'nose=1.3*' \
     'brian2' \
@@ -77,25 +77,26 @@ USER root
 
 # Dependencies
 RUN apt-get update && \
-    apt-get -y install autotools-dev \
-                       autoconf \
-                       automake \
-                       libtool \
-                       bison \
-                       flex \
-                       xfonts-100dpi \
-                       libncurses5-dev \
-                       libxext-dev \
-                       libreadline-dev \
-                       libopenmpi-dev \
-                       openmpi-bin \
-                       openmpi-doc \
-                       openmpi-common \
-                       liblapack-dev \
-                       libblas-dev \
-                       libxft-dev \
-                       mercurial \
-                       mercurial-common
+    apt-get install -y --no-install-recommends \
+                    autotools-dev \
+                    autoconf \
+                    automake \
+                    libtool \
+                    bison \
+                    flex \
+                    xfonts-100dpi \
+                    libncurses5-dev \
+                    libxext-dev \
+                    libreadline-dev \
+                    libopenmpi-dev \
+                    openmpi-bin \
+                    openmpi-doc \
+                    openmpi-common \
+                    liblapack-dev \
+                    libblas-dev \
+                    libxft-dev \
+                    mercurial \
+                    mercurial-common
 
 ENV NDIR $HOME/neuron
 ENV NRNPY /home/main/anaconda2/envs/python3/bin/python3
