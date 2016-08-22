@@ -15,7 +15,7 @@ RUN apt-get update && \
                     gfortran \
                     libatlas-dev \
                     libatlas-base-dev \
-                    libfreetype6-dev && \
+                    libfreetype6-dev \
                     autotools-dev \
                     autoconf \
                     automake \
