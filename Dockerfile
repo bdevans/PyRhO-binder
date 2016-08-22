@@ -124,16 +124,17 @@ RUN chmod o+w $NDIR
 
 USER main
 
+ENV CPB3 /home/main/anaconda2/envs/python3/bin
 ### Install PyRhO
 ENV VPYRHO 0.9.4
 # For upgrading: -U --ignore-installed --no-deps
 ## Install for Python 2
 #RUN pip install pyrho[full]==$VPYRHO
-RUN ln -s pip pip2
-RUN ln -s /home/main/anaconda2/envs/python3/bin/pip pip3
-RUN pip2 install git+https://github.com/ProjectPyRhO/PyRhO.git#egg=PyRhO[full]
+#RUN ln -s /home/main/anaconda2/bin/pip /home/main/anaconda2/bin/pip2
+#RUN ln -s /home/main/anaconda2/envs/python3/bin/pip /home/main/anaconda2/envs/python3/bin/pip3
+RUN pip install git+https://github.com/ProjectPyRhO/PyRhO.git#egg=PyRhO[full]
 ## Install for Python 3
-RUN pip3 install git+https://github.com/ProjectPyRhO/PyRhO.git#egg=PyRhO[full]
+RUN $CPB3/pip install git+https://github.com/ProjectPyRhO/PyRhO.git#egg=PyRhO[full]
 # Alternative to installing for Python 3
 #RUN source activate python3
 #RUN pip install --ignore-installed --no-deps pyrho[full]
