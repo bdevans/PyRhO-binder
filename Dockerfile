@@ -119,7 +119,7 @@ RUN cd $NDIR/nrn; ./configure --prefix=`pwd` --with-iv=$NDIR/iv --with-nrnpython
 RUN echo 'export PATH=$PATH:$NDIR/iv/$ARCH/bin:$NDIR/nrn/$ARCH/bin' >> /etc/bash.bashrc
 #RUN echo 'PYTHONPATH=$PYTHONPATH:$NDIR/nrn/lib/python'
 RUN echo 'export NRN_NMODL_PATH=$NDIR' >> /etc/bash.bashrc
-RUN cd $NDIR/nrn/src/nrnpython; python setup.py install
+RUN cd $NDIR/nrn/src/nrnpython; $NRNPY setup.py install
 RUN chmod o+w $NDIR
 
 USER main
@@ -129,9 +129,11 @@ ENV VPYRHO 0.9.4
 # For upgrading: -U --ignore-installed --no-deps
 ## Install for Python 2
 #RUN pip install pyrho[full]==$VPYRHO
-RUN pip install git+https://github.com/ProjectPyRhO/PyRhO.git#egg=PyRhO[full]
+RUN ln -s pip pip2
+RUN ln -s /home/main/anaconda2/envs/python3/bin/pip pip3
+RUN pip2 install git+https://github.com/ProjectPyRhO/PyRhO.git#egg=PyRhO[full]
 ## Install for Python 3
-RUN /home/main/anaconda2/envs/python3/bin/pip install git+https://github.com/ProjectPyRhO/PyRhO.git#egg=PyRhO[full]
+RUN pip3 install git+https://github.com/ProjectPyRhO/PyRhO.git#egg=PyRhO[full]
 # Alternative to installing for Python 3
 #RUN source activate python3
 #RUN pip install --ignore-installed --no-deps pyrho[full]
@@ -144,7 +146,7 @@ RUN python -c "from pyrho import *; setupNEURON()"
 USER root
 ### Copy demonstration notebook and config files to home directory
 #COPY jupyter_notebook_config.py $HOME/.jupyter/
-RUN chown -R main:main $HOME/notebooks
+#RUN chown -R main:main $HOME/notebooks
 RUN chown -R main:main $NDIR
 
 USER main
