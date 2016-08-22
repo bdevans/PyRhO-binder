@@ -63,8 +63,8 @@ RUN conda install --quiet --yes \
     #'bokeh=0.11*' \
     'matplotlib=1.5*' \
     'seaborn=0.7*' \
-    'pandas=0.17*' \
-    'h5py=2.5*' \
+    'pandas=0.18*' \
+    'h5py=2.6*' \
     'nose=1.3*' \
     'brian2' \
     'brian2tools' \
@@ -82,8 +82,8 @@ RUN conda install --quiet --yes -n python3 \
     #'bokeh=0.11*' \
     'matplotlib=1.5*' \
     'seaborn=0.7*' \
-    'pandas=0.17*' \
-    'h5py=2.5*' \
+    'pandas=0.18*' \
+    'h5py=2.6*' \
     'nose=1.3*' \
     'brian2' \
     'brian2tools' \
