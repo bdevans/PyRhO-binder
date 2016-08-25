@@ -146,9 +146,24 @@ RUN python -c "from pyrho import *; setupNEURON()"
 
 USER root
 ### Copy demonstration notebook and config files to home directory
+RUN find /home/main/work -name '*.ipynb' -exec jupyter nbconvert --to notebook {} --output {} \; && \
+    chown -R main:main /home/main
 #COPY jupyter_notebook_config.py $HOME/.jupyter/
 #RUN chown -R main:main $HOME/notebooks
 RUN chown -R main:main $NDIR
+
+# Install our custom.js
+COPY resources/custom.js /home/main/.jupyter/custom/
+
+# TODO: Check for /srv/ and /tmp/
+#USER root
+COPY resources/templates/ /srv/templates/
+RUN chmod a+rX /srv/templates
+
+# Append tmpnb specific options to the base config
+COPY resources/jupyter_notebook_config.partial.py /tmp/
+RUN cat /tmp/jupyter_notebook_config.partial.py >> /home/main/.jupyter/jupyter_notebook_config.py && \
+    rm /tmp/jupyter_notebook_config.partial.py
 
 USER main
 RUN find . -name '*.ipynb' -exec jupyter trust {} \;
