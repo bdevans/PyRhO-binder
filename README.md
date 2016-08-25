@@ -1,68 +1,23 @@
 Prometheus: Modelling as a Service
 ==================================
 
-This is a repository for building a customised tmpnb server for optogenetics with PyRhO installed and configured.
+# Brian 2 binder
 
-Quickstart Prometheus
----------------------
-`sudo apt-get update && sudo apt-get upgrade`
-#### Create an account to run the portal and disable root access
-See [this guide](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-14-04) for details including generating ssh keys.
+This repository is designed for trying [PyRhO](https://github.com/ProjectPyRhO/PyRhO) - A Python module for optogenetics. Clicking the button below launches a tempory Jupyter notebook enabling you to try PyRhO in your browser with no installation or configuration necessary. The service is hosted on [mybinder.org](http://mybinder.org/) courtesy of [The Freeman Lab](http://thefreemanlab.com/).
 
-`adduser monty`
+For updates on PyRhO, follow us on [twitter (@ProjectPyRhO)](https://twitter.com/ProjectPyRhO).
 
-`gpasswd -a monty sudo`
+## Quickstart
+Click this button to launch the binder directly. [![Binder](http://mybinder.org/badge.svg)](http://mybinder.org:/repo/bdevans/PyRhO-binder)
 
-`sudo nano /etc/ssh/sshd_config`
+## Manual instructions
+Alternatively, follow these steps to build this, or any other GitHub repository designed for binder (changing the repository URL appropriately).
 
-> PermitRootLogin no
+1. Go to the website [mybinder.org](http://mybinder.org/)
+2. Enter the URL of this repository: http://mybinder.org:/repo/bdevans/PyRhO-binder
+3. Click "submit"
+4. When the binder has been built, click "launch".
 
-`service ssh restart`
+If there is an issue launching the binder, please check the [service status page](http://mybinder.org/status).
 
-```bash
-git clone https://github.com/ProjectPyRhO/Prometheus
-
-chown -R monty:monty Prometheus/*
-
-cd Prometheus
-
-chmod a+x *.sh
-
-./setup_docker.sh
-
-./prometheus.sh
-```
-
-Interactive Docker image
-------------------------
-
-#### To run the PyRhO docker image:
-
-`sudo service docker start`
-
-`sudo docker build -t pyrho/minimal .`
-
-`docker run -i -t pyrho/minimal /bin/bash`
-
-Useful commands
----------------
-
-#### Clean docker images
-`sudo docker stop $(sudo docker ps -a -q)`
-
-`sudo docker rm $(sudo docker ps -a -q)`
-
-#### Remove old intermediate layers
-`docker rm $(docker ps -qa --no-trunc --filter "status=exited")`
-
-`docker rmi $(docker images -q --no-trunc --filter "dangling=true")`
-
-#### Check logs
-`sudo docker logs proxy`
-
-`sudo docker logs tmpnb`
-
-`sudo iptables -L`
-
-After an os update it may be necessary to run:
-`sudo apt-get install linux-image-extra-$(uname -r)`
+Thanks for trying PyRhO!
