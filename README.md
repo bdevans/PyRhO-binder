@@ -12,7 +12,7 @@ Click this button to launch the binder directly. [![Binder](http://mybinder.org/
 Alternatively, follow these steps to build this, or any other GitHub repository designed for binder (changing the repository URL appropriately).
 
 1. Go to the website [mybinder.org](http://mybinder.org/)
-2. Enter the URL of this repository: http://mybinder.org/repo/bdevans/PyRhO-binder
+2. Enter the URL of this repository: https://github.com/bdevans/PyRhO-binder
 3. Click "submit"
 4. When the binder has been built, click "launch".
 
