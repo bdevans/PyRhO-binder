@@ -144,10 +144,15 @@ RUN $CPB3/pip install git+https://github.com/ProjectPyRhO/PyRhO.git#egg=PyRhO[fu
 ENV NRN_NMODL_PATH $NDIR
 RUN python -c "from pyrho import *; setupNEURON()"
 
+# notebooks created by binder
+COPY index.ipynb /home/main/notebooks/index.ipynb
+RUN jupyter nbconvert --inplace --to notebook *.ipynb
+#--output 'index.ipynb'
 USER root
 ### Copy demonstration notebook and config files to home directory
-RUN find /home/main/work -name '*.ipynb' -exec jupyter nbconvert --to notebook {} --output {} \; && \
-    chown -R main:main /home/main
+#RUN find /home/main/notebooks -name '*.ipynb' -exec jupyter nbconvert --to notebook {} --output {} \; && \
+#    chown -R main:main /home/main
+
 #COPY jupyter_notebook_config.py $HOME/.jupyter/
 #RUN chown -R main:main $HOME/notebooks
 RUN chown -R main:main $NDIR
