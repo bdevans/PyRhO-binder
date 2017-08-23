@@ -126,7 +126,7 @@ USER main
 
 ENV CPB3 /home/main/anaconda2/envs/python3/bin
 ### Install PyRhO
-ENV VPYRHO 0.9.4
+#ENV VPYRHO 0.9.4
 # For upgrading: -U --ignore-installed --no-deps
 ## Install for Python 2
 #RUN pip install pyrho[full]==$VPYRHO
