@@ -1,7 +1,7 @@
 Prometheus: Modelling as a Service
 ==================================
 
-This repository is designed for trying [PyRhO](https://github.com/ProjectPyRhO/PyRhO) - A Python module for optogenetics. Clicking the button below launches a tempory Jupyter notebook enabling you to try PyRhO in your browser with no installation or configuration necessary. The service is hosted on [mybinder.org](http://mybinder.org/) courtesy of [The Freeman Lab](http://thefreemanlab.com/).
+This repository is designed for trying [PyRhO](https://github.com/ProjectPyRhO/PyRhO) - A Python module for optogenetics. Clicking the button below launches a temporary Jupyter notebook enabling you to try PyRhO in your browser with no installation or configuration necessary. The service is hosted on [mybinder.org](http://mybinder.org/) courtesy of [The Freeman Lab](http://thefreemanlab.com/).
 
 For updates on PyRhO, follow us on [twitter (@ProjectPyRhO)](https://twitter.com/ProjectPyRhO).
 
