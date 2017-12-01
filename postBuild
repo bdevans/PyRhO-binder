@@ -1,0 +1,43 @@
+#!/bin/bash
+
+
+
+#RUN source /etc/bash.bashrc
+#ENV NRN_NMODL_PATH $NDIR
+#RUN python -c "from pyrho import *; setupNEURON()"
+
+# notebooks created by binder
+#COPY index.ipynb /home/main/notebooks/index.ipynb
+#RUN jupyter nbconvert --inplace --to notebook *.ipynb
+#--output 'index.ipynb'
+#USER root
+### Copy demonstration notebook and config files to home directory
+find /home/main/notebooks -name '*.ipynb' -exec jupyter nbconvert --to notebook {} --output {} \; && \
+    chown -R main:main /home/main
+
+#COPY jupyter_notebook_config.py $HOME/.jupyter/
+#RUN chown -R main:main $HOME/notebooks
+# chown -R main:main $NDIR
+
+# Install our custom.js
+#COPY resources/custom.js /home/main/.jupyter/custom/
+
+# TODO: Check for /srv/ and /tmp/
+#USER root
+#COPY resources/templates/ /srv/templates/
+#RUN chmod a+rX /srv/templates
+
+# Append tmpnb specific options to the base config
+#COPY resources/jupyter_notebook_config.partial.py /tmp/
+#cat /tmp/jupyter_notebook_config.partial.py >> /home/main/.jupyter/jupyter_notebook_config.py && \
+#    rm /tmp/jupyter_notebook_config.partial.py
+
+# Notebooks w/ extensions that auto-run code must be "trusted" to work the first time
+#jupyter trust index.ipynb
+find . -name '*.ipynb' -exec jupyter trust {} \;
+
+# Fix matplotlib font cache
+#rm -rf /home/main/.matplolib
+#rm -rf /home/main/.cache/matplolib
+#rm -rf /home/main/.cache/fontconfig
+#python -c "import matplotlib.pyplot as plt"
