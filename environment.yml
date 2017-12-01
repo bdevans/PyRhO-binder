@@ -11,7 +11,7 @@ dependencies:
   - seaborn
   - bokeh
   - pandas
-  - ipywidgets=4.1*
+  #- ipywidgets=4.1*
   - numexpr
   - scipy
   - sympy
@@ -22,4 +22,5 @@ dependencies:
   - brian2tools
   - pip:
       - git+https://github.com/ProjectPyRhO/PyRhO.git#egg=PyRhO[full]
+      #- git+https://github.com/ProjectPyRhO/PyRhO.git
       #- pyrho
