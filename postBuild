@@ -41,3 +41,36 @@ find . -name '*.ipynb' -exec jupyter trust {} \;
 #rm -rf /home/main/.cache/matplolib
 #rm -rf /home/main/.cache/fontconfig
 #python -c "import matplotlib.pyplot as plt"
+
+
+
+export PYTHONHOME=`which python3` # For me it was /Users/rgerkin/miniconda3
+export NEURON_HOME=$(pwd) #/Applications/NEURON-7.5
+export LD_LIBRARY_PATH=$PYTHONHOME/lib
+export PATH=$PATH:$NEURON_HOME/nrn/x86_64/bin
+export PYTHONPATH=$PYTHONPATH:$NEURON_HOME/nrn/lib/python/
+
+rm -rf $NEURON_HOME # Get rid of old NEURON installations
+rm -rf $PYTHONHOME/lib/site-packages/neuron # Get rid old old NEURON code installations
+
+git clone https://github.com/nrnhines/iv.git
+git clone https://github.com/nrnhines/nrn.git
+
+#export PYTHON2 = `which python2` # /path/to/your/python2
+#$PYTHON2/bin/pip install mercurial
+
+#$PYTHON2/bin/hg clone http://www.neuron.yale.edu/hg/neuron/nrn
+cd nrn
+sh build.sh
+./configure --prefix=$NEURON_HOME/nrn --with-nrnpython=python3 # don't use "dynamic" since it doesn't actually work
+make
+sudo make install
+
+#nrniv
+python -c "import neuron"
+
+#sudo install_name_tool -change @rpath/libpython3.5m.dylib $MC3/lib/libpython3.5m.dylib $NEURON_HOME/bin/nrniv
+
+NDIR $HOME/neuron
+NRN_NMODL_PATH $NDIR
+python -c "from pyrho import *; setupNEURON()"
