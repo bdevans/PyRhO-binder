@@ -1,31 +1,3 @@
-#libav-tools
-git
-gcc
-#g++
-#gfortran
-#libatlas-dev
-#libatlas-base-dev
-#libfreetype6-dev
-#autotools-dev
-#autoconf
-#automake
-#libtool
-#bison
-#flex
-#xfonts-100dpi
-#libncurses5-dev
-#libxext-dev
-libreadline-dev
-#libopenmpi-dev
-#openmpi-bin
-#openmpi-doc
-#openmpi-common
-#liblapack-dev
-#libblas-dev
-#libxft-dev
-#mercurial
-#mercurial-common
-
 mercurial
 autoconf
 libtool
@@ -33,4 +5,3 @@ libxext-dev
 libncurses-dev
 bison
 flex
-# python-dev python-numpy python-scipy python-matplotlib ipython
