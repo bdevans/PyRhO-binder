@@ -69,8 +69,6 @@ sh build.sh
 make
 make install
 
-echo "Exiting..."
-exit 1
 #nrniv
 python -c "import neuron"
 
