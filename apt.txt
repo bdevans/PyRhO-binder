@@ -4,6 +4,7 @@ autoconf
 libtool
 libxext-dev
 libncurses-dev
+libreadline-dev
 bison
 flex
 libopenmpi-dev
