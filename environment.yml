@@ -1,5 +1,5 @@
 
-name: pyrho-environment
+name: pyrho-env
 channels:
   - brian-team
   - conda-forge
@@ -7,15 +7,17 @@ dependencies:
   - python
   - pip
   - numpy
+  - scipy
+  - pandas
+  #- sympy
+  #- cython
   - matplotlib #=1.5*
   - seaborn
-  - bokeh
-  - pandas
+  #- bokeh
   #- ipywidgets=4.1*
   - numexpr
-  - scipy
-  - sympy
-  - cython
+  - corner
+  - emcee
   - h5py #=2.6*
   - nose
   - brian2
