@@ -43,7 +43,9 @@ find . -name '*.ipynb' -exec jupyter trust {} \;
 #python -c "import matplotlib.pyplot as plt"
 
 
-
+export PYTHONPATH=`which python3` #/usr/local/lib/python3.5/
+echo $PYTHONPATH
+ls $PYTHONPATH
 export PYTHONHOME=`which python3` # For me it was /Users/rgerkin/miniconda3
 export NEURON_HOME=$(pwd) #/Applications/NEURON-7.5
 export LD_LIBRARY_PATH=$PYTHONHOME/lib
@@ -53,7 +55,7 @@ export PYTHONPATH=$PYTHONPATH:$NEURON_HOME/nrn/lib/python/
 rm -rf $NEURON_HOME # Get rid of old NEURON installations
 rm -rf $PYTHONHOME/lib/site-packages/neuron # Get rid old old NEURON code installations
 
-git clone https://github.com/nrnhines/iv.git
+#git clone https://github.com/nrnhines/iv.git
 git clone https://github.com/nrnhines/nrn.git
 
 #export PYTHON2 = `which python2` # /path/to/your/python2
