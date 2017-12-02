@@ -42,18 +42,18 @@ find . -name '*.ipynb' -exec jupyter trust {} \;
 #rm -rf /home/main/.cache/fontconfig
 #python -c "import matplotlib.pyplot as plt"
 
+export NEURON_HOME $HOME/neuron
+mkdir $NEURON_HOME
 
-export PYTHONPATH=`which python3` #/usr/local/lib/python3.5/
 echo $PYTHONPATH
-ls $PYTHONPATH
-export PYTHONHOME=`which python3` # For me it was /Users/rgerkin/miniconda3
-export NEURON_HOME=$(pwd) #/Applications/NEURON-7.5
+export PYTHONPATH=`which python3` #/usr/local/lib/python3.5/
+export PYTHONHOME=/srv/conda # For me it was /Users/rgerkin/miniconda3
 export LD_LIBRARY_PATH=$PYTHONHOME/lib
 export PATH=$PATH:$NEURON_HOME/nrn/x86_64/bin
 export PYTHONPATH=$PYTHONPATH:$NEURON_HOME/nrn/lib/python/
 
-rm -rf $NEURON_HOME # Get rid of old NEURON installations
-rm -rf $PYTHONHOME/lib/site-packages/neuron # Get rid old old NEURON code installations
+#rm -rf $NEURON_HOME # Get rid of old NEURON installations
+#rm -rf $PYTHONHOME/lib/site-packages/neuron # Get rid old old NEURON code installations
 
 #git clone https://github.com/nrnhines/iv.git
 git clone https://github.com/nrnhines/nrn.git
@@ -73,6 +73,5 @@ python -c "import neuron"
 
 #sudo install_name_tool -change @rpath/libpython3.5m.dylib $MC3/lib/libpython3.5m.dylib $NEURON_HOME/bin/nrniv
 
-NDIR $HOME/neuron
-NRN_NMODL_PATH $NDIR
+NRN_NMODL_PATH $NEURON_HOME
 python -c "from pyrho import *; setupNEURON()"
