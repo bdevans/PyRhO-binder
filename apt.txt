@@ -1,8 +1,11 @@
+build-essential
 git
 autoconf
 libtool
 libxext-dev
 libncurses-dev
-libncurses5-dev
 bison
 flex
+libopenmpi-dev
+openmpi-bin
+openmpi-common
