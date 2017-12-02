@@ -42,7 +42,7 @@ find . -name '*.ipynb' -exec jupyter trust {} \;
 #rm -rf /home/main/.cache/fontconfig
 #python -c "import matplotlib.pyplot as plt"
 
-export NEURON_HOME $HOME/neuron
+export NEURON_HOME=$HOME/neuron
 mkdir $NEURON_HOME
 
 echo $PYTHONPATH
@@ -60,8 +60,8 @@ git clone https://github.com/nrnhines/nrn.git
 
 #export PYTHON2 = `which python2` # /path/to/your/python2
 #$PYTHON2/bin/pip install mercurial
-
 #$PYTHON2/bin/hg clone http://www.neuron.yale.edu/hg/neuron/nrn
+
 cd nrn
 sh build.sh
 ./configure --prefix=$NEURON_HOME/nrn --with-nrnpython=python3 # don't use "dynamic" since it doesn't actually work
@@ -73,5 +73,5 @@ python -c "import neuron"
 
 #sudo install_name_tool -change @rpath/libpython3.5m.dylib $MC3/lib/libpython3.5m.dylib $NEURON_HOME/bin/nrniv
 
-NRN_NMODL_PATH $NEURON_HOME
+export NRN_NMODL_PATH=$NEURON_HOME
 python -c "from pyrho import *; setupNEURON()"
