@@ -9,3 +9,4 @@ flex
 libopenmpi-dev
 openmpi-bin
 openmpi-common
+libgl1-mesa-glx
