@@ -44,6 +44,7 @@ find . -name '*.ipynb' -exec jupyter trust {} \;
 
 export NEURON_HOME=$HOME/neuron
 mkdir $NEURON_HOME
+cd $NEURON_HOME
 
 echo $PYTHONPATH
 export PYTHONPATH=`which python3` #/usr/local/lib/python3.5/
