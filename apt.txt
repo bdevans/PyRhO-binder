@@ -3,7 +3,7 @@ git
 autoconf
 libtool
 libxext-dev
-libncurses-dev
+libncurses5-dev
 libreadline-dev
 bison
 flex
