@@ -67,8 +67,10 @@ cd nrn
 sh build.sh
 ./configure --prefix=$NEURON_HOME/nrn --with-nrnpython=python3 --with-paranrn --without-iv --without-x # don't use "dynamic" since it doesn't actually work
 make
-sudo make install
+make install
 
+echo "Exiting..."
+exit 1
 #nrniv
 python -c "import neuron"
 
