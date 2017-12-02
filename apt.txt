@@ -3,5 +3,6 @@ autoconf
 libtool
 libxext-dev
 libncurses-dev
+libncurses5-dev
 bison
 flex
