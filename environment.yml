@@ -4,21 +4,21 @@ channels:
   - brian-team
   - conda-forge
 dependencies:
-  - python
+  - python=3.6
   - pip
   - numpy
   - scipy
   - pandas
   #- sympy
   #- cython
-  - matplotlib #=1.5*
+  - matplotlib
   - seaborn
   #- bokeh
   #- ipywidgets=4.1*
   - numexpr
   - corner
   - emcee
-  - h5py #=2.6*
+  - h5py
   - nose
   - brian2
   - brian2tools
