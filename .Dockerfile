@@ -4,6 +4,7 @@ FROM andrewosh/binder-base
 MAINTAINER Project PyRhO <projectpyrho@gmail.com>
 
 USER root
+ARG DEBIAN_FRONTEND=noninteractive
 
 # libav-tools for matplotlib anim
 RUN apt-get update && \
@@ -53,43 +54,44 @@ RUN conda config --add channels brian-team
 
 # Install Python 2 packages
 RUN conda install --quiet --yes \
-    'pip=8.1*' \
+    'pip=9.0*' \
     #'ipython=4.1*' \
-    #'ipywidgets=4.1*' \
-    #'numexpr=2.5*' \
-    #'scipy=0.17*' \
-    #'sympy=0.7*' \
-    #'cython=0.24*' \
-    #'bokeh=0.11*' \
-    'matplotlib=1.5*' \
-    'seaborn=0.7*' \
-    'pandas=0.18*' \
-    'h5py=2.6*' \
+    #'ipywidgets=7.1*' \
+    #'numexpr=2.6*' \
+    #'scipy=1.0*' \
+    #'sympy=1.1*' \
+    #'cython=0.27*' \
+    #'bokeh=0.12*' \
+    'matplotlib=2.1*' \
+    'seaborn=0.8*' \
+    'pandas=0.22*' \
+    'h5py=2.7*' \
     'nose=1.3*' \
-    'brian2' \
-    'brian2tools' \
+    'brian2=2.1*' \
+    'brian2tools=0.2*' \
     #'pyzmq' \
     && conda clean -tipsy
 
 # Install Python 3 packages
 RUN conda install --quiet --yes -n python3 \
-    'pip=8.1*' \
+    'pip=9.0*' \
     #'ipywidgets=4.1*' \
     #'numexpr=2.5*' \
     #'scipy=0.17*' \
     #'sympy=0.7*' \
     #'cython=0.24*' \
     #'bokeh=0.11*' \
-    'matplotlib=1.5*' \
-    'seaborn=0.7*' \
-    'pandas=0.18*' \
-    'h5py=2.6*' \
+    'matplotlib=2.1*' \
+    'seaborn=0.8*' \
+    'pandas=0.22*' \
+    'h5py=2.7*' \
     'nose=1.3*' \
-    'brian2' \
-    'brian2tools' \
+    'brian2=2.1*' \
+    'brian2tools=0.2*' \
     && conda clean -tipsy
 
 USER root
+RUN pip install --upgrade pip
 
 ### NEURON installation
 
@@ -100,7 +102,7 @@ ENV ARCH x86_64
 RUN mkdir $NDIR
 WORKDIR $NDIR
 
-ENV VNRN 7.4
+ENV VNRN 7.5
 ENV VIV 19
 RUN wget -q http://www.neuron.yale.edu/ftp/neuron/versions/v$VNRN/nrn-$VNRN.tar.gz
 RUN wget -q http://www.neuron.yale.edu/ftp/neuron/versions/v$VNRN/iv-$VIV.tar.gz
