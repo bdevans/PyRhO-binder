@@ -15,7 +15,7 @@ dependencies:
   - seaborn
   #- bokeh
   #- ipywidgets=4.1*
-  - numexpr
+  #- numexpr
   - corner
   - emcee
   - h5py
