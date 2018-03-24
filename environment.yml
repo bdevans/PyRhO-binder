@@ -16,10 +16,12 @@ dependencies:
   #- bokeh
   #- ipywidgets=4.1*
   #- numexpr
-  - corner
+  #- corner
+  - dill
   - emcee
   - h5py
-  - nose
+  - pytest
+  #- nose
   - brian2
   - brian2tools
   - pip:
