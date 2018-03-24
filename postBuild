@@ -76,3 +76,7 @@ python -c "import neuron"
 
 export NRN_NMODL_PATH=$NEURON_HOME
 python -c "from pyrho import *; setupNEURON()"
+
+# Cleanup
+rm environment.yml
+rm postBuild
