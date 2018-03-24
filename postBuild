@@ -16,9 +16,11 @@
 
 #USER root
 pip install --upgrade pip
+#USER ${NB_USER}
 
 ### NEURON installation
-USER ${NB_USER}
+export VNRN=7.5
+#export VIV=19
 export ARCH=x86_64
 NCORES=$(nproc)
 export NCORES
@@ -34,31 +36,28 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$NDIR/nrn/$ARCH/lib:/usr/lib/x86_64-linu
 #RUN dpkg -L libreadline-dev
 #RUN find /usr -name "libtinfo.so*"
 
-export VNRN=7.5
-#ENV VIV 19
 wget -q http://www.neuron.yale.edu/ftp/neuron/versions/v$VNRN/nrn-$VNRN.tar.gz
-#RUN wget -q http://www.neuron.yale.edu/ftp/neuron/versions/v$VNRN/iv-$VIV.tar.gz
-#RUN tar xzf iv-$VIV.tar.gz; rm iv-$VIV.tar.gz; mv iv-$VIV iv
+#wget -q http://www.neuron.yale.edu/ftp/neuron/versions/v$VNRN/iv-$VIV.tar.gz
+#tar xzf iv-$VIV.tar.gz; rm iv-$VIV.tar.gz; mv iv-$VIV iv
 tar xzf nrn-$VNRN.tar.gz; rm nrn-$VNRN.tar.gz; mv nrn-$VNRN $NDIR/nrn
 # https://neuron.yale.edu/ftp/neuron/versions/v7.5/nrn-7.5.tar.gz
 
 #RUN git clone https://github.com/nrnhines/nrn.git
 conda remove --force ncurses #readline
-#RUN cd $NDIR/iv; ./build.sh; ./configure --prefix=`pwd` --with-x --x-includes=/usr/include/ --x-libraries=/usr/lib/ && make && make install
-#RUN cd $NDIR/nrn; sh src/nrnmpi/mkdynam.sh; ./build.sh;
+#cd $NDIR/iv; ./build.sh; ./configure --prefix=`pwd` --with-x --x-includes=/usr/include/ --x-libraries=/usr/lib/ && make && make install
+#cd $NDIR/nrn; sh src/nrnmpi/mkdynam.sh; ./build.sh;
 cd $NDIR/nrn; ./build.sh;
 #RUN cd $NDIR/nrn; 2to3 -w src/oc/mk_hocusr_h.py; sed -i '1i from __future__ import print_function' src/oc/mk_hocusr_h.py
 #RUN cd $NDIR/nrn; sed -i.bak -e "s/print sys.api_version,/from __future__ import print_function; print(sys.api_version)/" configure
 #RUN cd $NDIR/nrn; ./configure --prefix=`pwd` --with-nrnpython=$NRNPY --with-paranrn=dynamic --with-iv=$NDIR/iv \
 #--with-x --x-includes=/usr/include/ --x-libraries=/usr/lib/ --with-mpi && make && make install
-cd $NDIR/nrn; ./configure --prefix="$(pwd)" --without-x --without-iv --with-nrnpython --with-paranrn
+cd $NDIR/nrn; ./configure --prefix="$(pwd)" --without-x --without-iv --with-nrnpython --with-paranrn && make -j$NCORES && make install
 #  --libdir=/usr/lib/x86_64-linux-gnu
 # --with-readline=/usr/lib
 # --libdir=/usr/lib
-# && make -j$NCORES && make install
 #RUN ls $NDIR/nrn
 #RUN cat $NDIR/nrn/config.log
-cd $NDIR/nrn; make -j$NCORES && make install
+#cd $NDIR/nrn; make -j$NCORES && make install
 # openmpi or mpich
 #--with-mpi
 #--with-paranrn=dynamic
@@ -68,6 +67,7 @@ cd $NDIR/nrn; make -j$NCORES && make install
 echo 'export PATH=$PATH:$NDIR/nrn/$ARCH/bin' | sudo tee -a /etc/bash.bashrc
 #RUN echo 'PYTHONPATH=$PYTHONPATH:$NDIR/nrn/lib/python'
 echo 'export NRN_NMODL_PATH=$NDIR' | sudo tee -a /etc/bash.bashrc
+export NRN_NMODL_PATH=$NDIR
 cd $NDIR/nrn/src/nrnpython; python setup.py install
 chmod o+w $NDIR
 
@@ -97,7 +97,6 @@ chmod o+w $NDIR
 mkdir -p /home/${NB_USER}/.config/matplotlib
 echo "backend : Agg" > /home/${NB_USER}/.config/matplotlib/matplotlibrc
 #RUN source /etc/bash.bashrc
-export NRN_NMODL_PATH=$NDIR
 #WORKDIR /home/${NB_USER}
 cd ~; python -c "from pyrho import *; setupNEURON()"
 
@@ -133,10 +132,10 @@ cd ~; python -c "from pyrho import *; setupNEURON()"
 # RUN jupyter serverextensions enable --sys-prefix nbgoogleanalytics
 # RUN jupyter notebook --GoogleAnalytics.tracking_id="UA-82943814-1"
 
-chown -R ${NB_USER}:${NB_GID} ${HOME}
-
 # USER ${NB_USER}
 find . -name '*.ipynb' -exec jupyter trust {} \;
+
+chown -R ${NB_USER}:${NB_GID} ${HOME}
 
 # Cleanup
 rm environment.yml
