@@ -132,6 +132,12 @@ cd ~; python -c "from pyrho import *; setupNEURON()"
 # RUN jupyter serverextensions enable --sys-prefix nbgoogleanalytics
 # RUN jupyter notebook --GoogleAnalytics.tracking_id="UA-82943814-1"
 
+jupyter contrib nbextension install --user
+jupyter nbextension enable --py widgetsnbextension
+#jupyter nbextension enable python-markdown/main
+
+# Notebooks w/ extensions that auto-run code must be "trusted" to work the first time
+#jupyter trust index.ipynb
 # USER ${NB_USER}
 find . -name '*.ipynb' -exec jupyter trust {} \;
 
