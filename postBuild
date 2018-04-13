@@ -100,6 +100,12 @@ echo "backend : Agg" > /home/${NB_USER}/.config/matplotlib/matplotlibrc
 #WORKDIR /home/${NB_USER}
 cd ~; python -c "from pyrho import *; setupNEURON()"
 
+# Fix matplotlib font cache
+rm -rf /home/${NB_USER}/.matplolib/*
+rm -rf /home/${NB_USER}/.cache/matplolib/*
+rm -rf /home/${NB_USER}/.cache/fontconfig/*
+python -c "import matplotlib.pyplot as plt"
+
 # notebooks created by binder
 #COPY index.ipynb /home/${NB_USER}/index.ipynb
 #RUN jupyter nbconvert --inplace --to notebook *.ipynb
