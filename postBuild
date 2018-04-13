@@ -52,7 +52,8 @@ cd $NDIR/nrn; ./build.sh;
 #RUN cd $NDIR/nrn; ./configure --prefix=`pwd` --with-nrnpython=$NRNPY --with-paranrn=dynamic --with-iv=$NDIR/iv \
 #--with-x --x-includes=/usr/include/ --x-libraries=/usr/lib/ --with-mpi && make && make install
 cd $NDIR/nrn; ./configure --prefix="$(pwd)" --without-x --without-iv --with-nrnpython --with-paranrn && make -j$NCORES && make install
-#  --libdir=/usr/lib/x86_64-linux-gnu
+# --disable-rx3d
+# --libdir=/usr/lib/x86_64-linux-gnu
 # --with-readline=/usr/lib
 # --libdir=/usr/lib
 #RUN ls $NDIR/nrn
@@ -138,6 +139,8 @@ python -c "import matplotlib.pyplot as plt"
 # RUN jupyter serverextensions enable --sys-prefix nbgoogleanalytics
 # RUN jupyter notebook --GoogleAnalytics.tracking_id="UA-82943814-1"
 
+# Enable extensions for ipywidgets
+# https://mybinder.readthedocs.io/en/latest/sample_repos.html#enabling-jupyter-extensions-with-post-build-commands
 jupyter contrib nbextension install --user
 jupyter nbextension enable --py widgetsnbextension
 #jupyter nbextension enable python-markdown/main
