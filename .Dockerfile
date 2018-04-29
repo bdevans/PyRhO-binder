@@ -3,6 +3,10 @@
 # Binder requires a specific version
 #FROM jupyter/minimal-notebook
 FROM jupyter/base-notebook
+# https://github.com/NeuralEnsemble/neuralensemble-docker/blob/master/simulation/Dockerfile
+# https://github.com/DaisukeMiyamoto/docker-neuron
+# https://github.com/brainscales/docker-images/blob/brainscales-neural-networks/software/Dockerfile
+# https://github.com/rgerkin/neuron-python3-miniconda/blob/master/.travis.yml
 
 LABEL maintainer="Project PyRhO <projectpyrho@gmail.com>"
 
