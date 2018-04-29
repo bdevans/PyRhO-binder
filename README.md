@@ -6,7 +6,7 @@ This repository is designed for trying [PyRhO](https://github.com/ProjectPyRhO/P
 For updates on PyRhO, follow us on [twitter (@ProjectPyRhO)](https://twitter.com/ProjectPyRhO).
 
 ## Quickstart
-Click this button to launch the binder directly. [![Binder](http://mybinder.org/badge.svg)](http://mybinder.org/repo/bdevans/PyRhO-binder)
+Click this button to launch the binder directly. [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/bdevans/PyRhO-binder/v2?filepath=index.ipynb)
 
 ## Manual instructions
 Alternatively, follow these steps to build this, or any other GitHub repository designed for binder (changing the repository URL appropriately).

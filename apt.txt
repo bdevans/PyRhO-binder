@@ -1,0 +1,13 @@
+build-essential
+git
+autotools-dev
+autoconf
+automake
+openmpi-bin
+libopenmpi-dev
+libtool
+bison
+flex
+libncurses5-dev
+libreadline-dev
+libtinfo-dev
