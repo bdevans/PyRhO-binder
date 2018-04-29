@@ -129,7 +129,7 @@ RUN cd $NDIR/nrn; ./build.sh;
 #RUN cd $NDIR/nrn; sed -i.bak -e "s/print sys.api_version,/from __future__ import print_function; print(sys.api_version)/" configure
 #RUN cd $NDIR/nrn; ./configure --prefix=`pwd` --with-nrnpython=$NRNPY --with-paranrn=dynamic --with-iv=$NDIR/iv \
 #--with-x --x-includes=/usr/include/ --x-libraries=/usr/lib/ --with-mpi && make && make install
-RUN cd $NDIR/nrn; ./configure --prefix=`pwd` --without-x --without-iv --with-nrnpython --with-paranrn
+RUN cd $NDIR/nrn; ./configure --prefix=`pwd` --without-x --without-iv --with-nrnpython --with-paranrn --disable-rx3d
 #  --libdir=/usr/lib/x86_64-linux-gnu
 # --with-readline=/usr/lib
 # --libdir=/usr/lib
