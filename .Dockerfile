@@ -197,18 +197,29 @@ COPY index.ipynb /home/${NB_USER}/index.ipynb
 #RUN chown -R ${NB_USER}:${NB_GID} $NDIR
 
 # Install our custom.js
-COPY resources/custom.js /home/${NB_USER}/.jupyter/custom/
+#COPY resources/custom.js /home/${NB_USER}/.jupyter/custom/
 
 # TODO: Check for /srv/ and /tmp/
-USER root
-COPY resources/templates/ /srv/templates/
-RUN chmod a+rX /srv/templates
+#USER root
+#COPY resources/templates/ /srv/templates/
+#RUN chmod a+rX /srv/templates
 
 # Append tmpnb specific options to the base config
-COPY resources/jupyter_notebook_config.partial.py /tmp/
-RUN cat /tmp/jupyter_notebook_config.partial.py >> /home/${NB_USER}/.jupyter/jupyter_notebook_config.py && \
-    rm /tmp/jupyter_notebook_config.partial.py
+#COPY resources/jupyter_notebook_config.partial.py /tmp/
+#RUN cat /tmp/jupyter_notebook_config.partial.py >> /home/${NB_USER}/.jupyter/jupyter_notebook_config.py && \
+#    rm /tmp/jupyter_notebook_config.partial.py
 
+RUN pip install nbgoogleanalytics
+RUN jupyter nbextension install --py --sys-prefix nbgoogleanalytics
+RUN jupyter nbextension enable --py --sys-prefix nbgoogleanalytics
+RUN jupyter serverextension enable --sys-prefix nbgoogleanalytics
+#--sys-prefix
+#RUN jupyter notebook --GoogleAnalytics.tracking_id="UA-82943814-1"
+
+RUN touch /home/${NB_USER}/.jupyter/jupyter_notebook_config.py
+RUN cat "c.GoogleAnalytics.tracking_id = 'UA-82943814-1'" >> /home/${NB_USER}/.jupyter/jupyter_notebook_config.py
+
+USER root
 RUN chown -R ${NB_USER}:${NB_GID} ${HOME}
 
 USER ${NB_USER}
