@@ -42,6 +42,7 @@ RUN apt-get update && \
                     #libxft-dev \
                     #xfonts-100dpi \
                     #libfreetype6-dev \
+                    #libgl1-mesa-glx \
                     #openmpi-doc \
                     #openmpi-common \
                     #libmpich-dev && \
