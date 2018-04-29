@@ -3,6 +3,10 @@
 # Binder requires a specific version
 #FROM jupyter/minimal-notebook
 FROM jupyter/base-notebook
+# https://github.com/NeuralEnsemble/neuralensemble-docker/blob/master/simulation/Dockerfile
+# https://github.com/DaisukeMiyamoto/docker-neuron
+# https://github.com/brainscales/docker-images/blob/brainscales-neural-networks/software/Dockerfile
+# https://github.com/rgerkin/neuron-python3-miniconda/blob/master/.travis.yml
 
 LABEL maintainer="Project PyRhO <projectpyrho@gmail.com>"
 
@@ -38,6 +42,7 @@ RUN apt-get update && \
                     #libxft-dev \
                     #xfonts-100dpi \
                     #libfreetype6-dev \
+                    #libgl1-mesa-glx \
                     #openmpi-doc \
                     #openmpi-common \
                     #libmpich-dev && \
@@ -129,7 +134,7 @@ RUN cd $NDIR/nrn; ./build.sh;
 #RUN cd $NDIR/nrn; sed -i.bak -e "s/print sys.api_version,/from __future__ import print_function; print(sys.api_version)/" configure
 #RUN cd $NDIR/nrn; ./configure --prefix=`pwd` --with-nrnpython=$NRNPY --with-paranrn=dynamic --with-iv=$NDIR/iv \
 #--with-x --x-includes=/usr/include/ --x-libraries=/usr/lib/ --with-mpi && make && make install
-RUN cd $NDIR/nrn; ./configure --prefix=`pwd` --without-x --without-iv --with-nrnpython --with-paranrn
+RUN cd $NDIR/nrn; ./configure --prefix=`pwd` --without-x --without-iv --with-nrnpython --with-paranrn --disable-rx3d
 #  --libdir=/usr/lib/x86_64-linux-gnu
 # --with-readline=/usr/lib
 # --libdir=/usr/lib
@@ -193,18 +198,29 @@ COPY index.ipynb /home/${NB_USER}/index.ipynb
 #RUN chown -R ${NB_USER}:${NB_GID} $NDIR
 
 # Install our custom.js
-COPY resources/custom.js /home/${NB_USER}/.jupyter/custom/
+#COPY resources/custom.js /home/${NB_USER}/.jupyter/custom/
 
 # TODO: Check for /srv/ and /tmp/
-USER root
-COPY resources/templates/ /srv/templates/
-RUN chmod a+rX /srv/templates
+#USER root
+#COPY resources/templates/ /srv/templates/
+#RUN chmod a+rX /srv/templates
 
 # Append tmpnb specific options to the base config
-COPY resources/jupyter_notebook_config.partial.py /tmp/
-RUN cat /tmp/jupyter_notebook_config.partial.py >> /home/${NB_USER}/.jupyter/jupyter_notebook_config.py && \
-    rm /tmp/jupyter_notebook_config.partial.py
+#COPY resources/jupyter_notebook_config.partial.py /tmp/
+#RUN cat /tmp/jupyter_notebook_config.partial.py >> /home/${NB_USER}/.jupyter/jupyter_notebook_config.py && \
+#    rm /tmp/jupyter_notebook_config.partial.py
 
+RUN pip install nbgoogleanalytics
+RUN jupyter nbextension install --py --sys-prefix nbgoogleanalytics
+RUN jupyter nbextension enable --py --sys-prefix nbgoogleanalytics
+RUN jupyter serverextension enable --sys-prefix nbgoogleanalytics
+#--sys-prefix
+#RUN jupyter notebook --GoogleAnalytics.tracking_id="UA-82943814-1"
+
+RUN touch /home/${NB_USER}/.jupyter/jupyter_notebook_config.py
+RUN cat "c.GoogleAnalytics.tracking_id = 'UA-82943814-1'" >> /home/${NB_USER}/.jupyter/jupyter_notebook_config.py
+
+USER root
 RUN chown -R ${NB_USER}:${NB_GID} ${HOME}
 
 USER ${NB_USER}
