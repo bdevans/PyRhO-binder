@@ -1,0 +1,15 @@
+#!/bin/bash
+
+export NDIR=$HOME/neuron
+export NRN_NMODL_PATH=$NDIR
+
+# Notebooks w/ extensions that auto-run code must be "trusted" to work the first time
+#jupyter trust index.ipynb
+# USER ${NB_USER}
+find . -name '*.ipynb' -exec jupyter trust {} \;
+
+# chown -R ${NB_USER}:${NB_GID} ${HOME}
+
+# Cleanup
+# rm environment.yml
+# rm postBuild
